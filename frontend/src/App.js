@@ -1,43 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
-import Aboute from './components/Aboute';
-import Contacts from './components/Contacts';
-import Services from './components/Services'
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
-import Page from './components/Page'
+import Register from './components/Register';
 import Login from './components/Login';
-import Decorations from "./components/Decorations"
-import { ToastContainer } from 'react-toastify';
-import CreateEvent from './Events/CreateEvent';
-import EventForm from './components/EventForm';
-import EventList from './components/EventList';
-import TicketBooking from './components/TicketBooking';
-import UserProfile from './components/UserProfile';
+import Home from './components/Home';
+import Navbar from './components/Navbar';
+import AddTask from './components/AddTask';
+import Tasklist from './components/Taskslist';
 
 function App() {
   return (
     <div className="App">
-      <Navbar/>
+      <h1>hii</h1>
+      <Navbar />
       <Routes>
-        
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/Aboute' element={<Aboute/>}></Route>
-        <Route path='/Contacts' element={<Contacts/>}></Route>
-        <Route path='/Decorations' element={<Decorations/>}></Route>
-        <Route path='/services' element={<Services/>}></Route>
-        <Route path='/Footer' element={<Footer/>}></Route>
-        <Route path='*' element={<Page/>}></Route>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path='/CreateEvent' element={<CreateEvent/>}></Route>
-        <Route path="/" element={<EventList />} />
-        <Route path="/create-event" element={<EventForm />} />
-        <Route path="/book-ticket/:eventId" element={<TicketBooking />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route  path='/' element={<Home />}/>
+        <Route  path='/register' element={<Register />}/>
+        <Route  path='/login' element={<Login />}/>
+        <Route  path='/add-task' element={<AddTask />}/>
+        <Route  path='/all-tasks' element={<Tasklist />}/>
       </Routes>
-      <ToastContainer/>
     </div>
   );
 }

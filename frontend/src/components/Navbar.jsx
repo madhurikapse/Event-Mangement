@@ -1,41 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
+import toast from "react-hot-toast";
 import "./Navbar.css"
+import Api from "../axiosconfig";
 
-const Navbar = () => {
-  return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <Link className="navbar-logo">
-          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqKg208lpFQcx3vLEmLU40qPDuBztTcrcQmaHF2eIv1pzVg5W9hbIJAU9BFWI979tqRHA&usqp=CAU'></img>
-        </Link>
-        <ul className="navbar-menu">
-          <li className="navbar-item">
-            <Link to="/" className="navbar-link">Home</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/about" className="navbar-link">About</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/contacts" className="navbar-link">Contacts</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/Decorations" className="navbar-link">Decorations</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="Services" className="navbar-link">Services</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="Login" className="navbar-link">Login</Link>
-          </li>
-         
-        </ul>
-        <nav><span className='icon'> <i class="fa-solid fa-heart"></i></span>
-        <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
-        </nav>
-      </div>
-    </nav>
-  );
-};
+function Navbar(){
+
+    const router = useNavigate();
+    const { state, dispatch } = useContext(AuthContext);
+
+    async function handleLogout() {
+        try {
+            const response = await Api.post("/auth/logout");
+            if (response.data.success) {
+                dispatch({ type: "LOGOUT" });
+                router("/login");
+                toast.success(response.data.message);
+            } else {
+                toast.error("Logout failed.");
+            }
+        } catch (error) {
+            toast.error("Failed to logout.");
+        }
+    }
+    
+    return(
+        <div className="parentdiv">
+            <head>
+                <title>PUMA.COM | Forever Faster</title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+                <link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/010/994/248/small/puma-logo-white-symbol-clothes-design-icon-abstract-football-illustration-with-black-background-free-vector.jpg" />
+            </head>
+        <div className="Navbar2">
+                <div className="leftNavbar2">
+                    <div id='leftnavbarimg'><img alt="icon" src="https://st3.depositphotos.com/32824554/34025/v/450/depositphotos_340258740-stock-illustration-list-icon-template-black-color.jpg"/></div>
+                </div>
+                <div className="rightNavbar2">
+                    <div className="options">
+                        <div onClick={()=>router("/")}>Home</div>
+                        {!state?.user && (<div onClick={()=>router("/register")}><span>Register</span></div>)}
+                        <div onClick={()=>router("/add-task")}>Add Task</div>
+                        {state?.user && (<div onClick={()=>router("/all-tasks")}>All Tasks</div>)}
+                        <div>{state?.user ? (<span onClick={handleLogout}>Logout</span>) : (<span onClick={()=>router("/login")}>Login</span>)}</div>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    )
+}
 
 export default Navbar;
