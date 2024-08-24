@@ -1,0 +1,32 @@
+/* Slider.css */
+
+/* Base styles */
+.slider-container {
+    width: 100%;
+    margin: auto;
+    overflow: hidden; /* Ensures no overflow */
+}
+
+.slider-image, .slider-video {
+    width: 100%;
+    height: auto;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+    .slider-image, .slider-video {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider-image, .slider-video {
+        height: 300px; /* Adjust height for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-image, .slider-video {
+        height: 200px; /* Adjust height for mobile devices */
+    }
+}

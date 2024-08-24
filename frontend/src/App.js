@@ -5,20 +5,26 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import AddTask from './components/AddTask';
 import Tasklist from './components/Taskslist';
-
+import CreateEvent from "./components/CreateEvent"
+import TicketBooking from './components/TicketBooking';
+import UserProfile from './components/serProfile';
+import SocialShare from './components/SocialShare';
 function App() {
   return (
     <div className="App">
-      <h1>hii</h1>
-      <Navbar />
+     
+      <Navbar/>
+      
       <Routes>
         <Route  path='/' element={<Home />}/>
-        <Route  path='/register' element={<Register />}/>
-        <Route  path='/login' element={<Login />}/>
-        <Route  path='/add-task' element={<AddTask />}/>
-        <Route  path='/all-tasks' element={<Tasklist />}/>
+        <Route  path='/register' element={<Register/>}/>
+        <Route  path='/login' element={<Login/>}/>
+        <Route  path='/CreateEvent' element={<CreateEvent/>}/>
+        <Route  path='/all-tasks' element={<Tasklist/>}/>
+        <Route path="/TicketBooking" element={<TicketBooking/>}></Route>
+        <Route  path='/UserProfile' element={<UserProfile/>}/>
+        <Route  path='/SocialShare' element={<SocialShare/>}/>
       </Routes>
     </div>
   );

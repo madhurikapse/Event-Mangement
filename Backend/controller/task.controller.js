@@ -109,10 +109,10 @@ export const Register = async (req, res) => {
     }
 };
 
-  export const AddTask = async (req, res) => {
+  export const CreateTask = async (req, res) => {
     try {
-      const { title, description, duedate, status, assignedTo  } = req.body.taskData;
-      if (!title || !description || !duedate || !status || !assignedTo ) {
+      const { title, description, date_time,location,image_url } = req.body.taskData;
+      if (!title || !description || !date_time || !location || !image_url ) {
         return res.json({ success: false, error: "All fields are required." });
       }
       const isTitleExist = await Task.findOne({ title: title });
@@ -127,9 +127,9 @@ export const Register = async (req, res) => {
       const newTask = new Task({
         title: title,
         description: description,
-        duedate: duedate,
-        status:status,
-        assignedTo: assignedTo
+        date_time:date-time,
+        location:location,
+        image_url:image_url
       });
       console.log(assignedTo)
   

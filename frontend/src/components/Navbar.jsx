@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import toast from "react-hot-toast";
-import "./Navbar.css"
+
+import "../styles/Navbar.css"
 import Api from "../axiosconfig";
 
 function Navbar(){
@@ -40,8 +41,9 @@ function Navbar(){
                 <div className="rightNavbar2">
                     <div className="options">
                         <div onClick={()=>router("/")}>Home</div>
+                        <div onClick={()=>router("/TicketBooking")}>TicketBooking</div>
                         {!state?.user && (<div onClick={()=>router("/register")}><span>Register</span></div>)}
-                        <div onClick={()=>router("/add-task")}>Add Task</div>
+                        <div onClick={()=>router("/CreateEvent")}>CreateEvent</div>
                         {state?.user && (<div onClick={()=>router("/all-tasks")}>All Tasks</div>)}
                         <div>{state?.user ? (<span onClick={handleLogout}>Logout</span>) : (<span onClick={()=>router("/login")}>Login</span>)}</div>
 

@@ -1,0 +1,113 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: FFDINforPuma, Inter, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Container for centering and full width */
+.parentdiv {
+  margin: auto;
+  width: 100%;
+}
+
+/* Navbar styling */
+.Navbar2 {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  padding-right: 32px;
+  line-height: 1.5;
+}
+
+/* Left side of the Navbar */
+.leftNavbar2 {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  padding-left: 22px;
+}
+
+/* Image container on the left */
+#leftnavbarimg {
+  height: 60%; /* Adjusted to fit within the navbar */
+  cursor: pointer;
+}
+
+#leftnavbarimg > img {
+  height: 100%;
+  width: auto; /* Maintain aspect ratio */
+}
+
+/* Right side of the Navbar */
+.rightNavbar2 {
+  width: 70%; /* Adjusted width */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 6px;
+}
+
+/* Navigation options container */
+.options {
+  display: flex;
+  gap: 20px; /* Space between options */
+}
+
+.options > div {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+.options > div:hover {
+  background-color: #555; /* Darker background on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .Navbar2 {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .leftNavbar2, .rightNavbar2 {
+      width: 100%;
+      padding: 0;
+  }
+
+  .rightNavbar2 {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+  }
+
+  .options {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .Navbar2 {
+      font-size: 14px; /* Smaller font size for small screens */
+  }
+
+  #leftnavbarimg {
+      height: 40px; /* Adjust size for small screens */
+  }
+
+  .options > div {
+      padding: 10px;
+      font-size: 14px;
+  }
+}
