@@ -15,6 +15,27 @@ app.use(
     origin: ["http://localhost:3000"],
   })
 );
+import Stripe  from "stripe"
+
+const stripe = Stripe('pk_test_51Pqvc2Ag4hqJmskOwA2qvmViAhhJUCmdQTPSBoWJBZADRRoEDiEKEsJbSCFuvj1zp89GgXxAYxkGmm1sZK6vFTGc00Es8RGKPe');
+
+
+app.post('/create-payment-intent', async (req, res) => {
+    const { amount } = req.body;
+
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount,
+            currency: 'usd',
+            // Optional: Add payment method or customer details here
+        });
+        res.send({
+            clientSecret: paymentIntent.client_secret
+        });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+});
 dotenv.config();
 app.use(express.json());
 

@@ -10,6 +10,7 @@
 .parentdiv {
   margin: auto;
   width: 100%;
+  background-color: burlywood;
 }
 
 /* Navbar styling */
@@ -21,7 +22,7 @@
   font-size: 16px;
   font-weight: 700;
   color: white;
-  background-color: black;
+  background-color:rgba(0, 0, 0, 0.913);
   padding-right: 32px;
   line-height: 1.5;
 }

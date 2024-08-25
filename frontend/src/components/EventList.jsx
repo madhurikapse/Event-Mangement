@@ -12,7 +12,7 @@ const EventList = () => {
 
   return (
     <div>
-      <h1>Events</h1>
+      <h1>Events list</h1>
       <ul>
         {events.map(event => (
           <li key={event._id}>

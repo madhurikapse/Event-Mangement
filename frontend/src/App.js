@@ -10,7 +10,13 @@ import CreateEvent from "./components/CreateEvent"
 import TicketBooking from './components/TicketBooking';
 import UserProfile from './components/serProfile';
 import SocialShare from './components/SocialShare';
+import Reminder from './components/Reminder';
+import PaymentForm from './components/PaymentForm';
+
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 function App() {
+  const stripePromise = loadStripe('YOUR_PUBLISHABLE_KEY'); 
   return (
     <div className="App">
      
@@ -25,7 +31,13 @@ function App() {
         <Route path="/TicketBooking" element={<TicketBooking/>}></Route>
         <Route  path='/UserProfile' element={<UserProfile/>}/>
         <Route  path='/SocialShare' element={<SocialShare/>}/>
+        <Route path='/Reminder' element={<Reminder/>}/>
+        <Route path='/SocialShare' element={<SocialShare/>}/>
+        <Route path='/PaymentForm' element={<PaymentForm/>}/>
       </Routes>
+      <Elements stripe={stripePromise}>
+        <PaymentForm />
+    </Elements>
     </div>
   );
 }

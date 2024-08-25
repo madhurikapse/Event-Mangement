@@ -29,14 +29,14 @@ function Navbar(){
     return(
         <div className="parentdiv">
             <head>
-                <title>PUMA.COM | Forever Faster</title>
+                <title>Event mangement</title>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
                 <link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/010/994/248/small/puma-logo-white-symbol-clothes-design-icon-abstract-football-illustration-with-black-background-free-vector.jpg" />
             </head>
         <div className="Navbar2">
                 <div className="leftNavbar2">
-                    <div id='leftnavbarimg'><img alt="icon" src="https://st3.depositphotos.com/32824554/34025/v/450/depositphotos_340258740-stock-illustration-list-icon-template-black-color.jpg"/></div>
+                    <div id='leftnavbarimg' ><img style={{height:90, width:200,marginTop:-25}} alt="icon" src="https://i.etsystatic.com/22631858/r/il/bff712/3853328308/il_570xN.3853328308_eqi5.jpg"/></div>
                 </div>
                 <div className="rightNavbar2">
                     <div className="options">

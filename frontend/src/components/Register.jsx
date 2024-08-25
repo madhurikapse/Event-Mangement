@@ -83,7 +83,7 @@ const Register = () => {
             ))}
           </div>
         )}
-        <input disabled={disable} type="submit" value="Register" />
+        <input  type="submit" value="Register" />
         <br />
       </form>
       <button onClick={() => router("/login")}>Login ?</button>

@@ -2,6 +2,8 @@ import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Task from "../models/task.model.js";
+import Ticket from "../models/Ticket.model.js";
+import profile from "../models/profile.model.js";
 
 export const Register = async (req, res) => {
     try {
@@ -20,7 +22,7 @@ export const Register = async (req, res) => {
   
       const encryptedPassword = await bcrypt.hash(password, 10);
   
-      const newUser = new User1({
+      const newUser = new User({
         name: name,
         email: email,
         password: encryptedPassword,
@@ -45,7 +47,7 @@ export const Register = async (req, res) => {
         return res.json({ success: false, error: "All fields are required." });
       }
   
-      const isUserExists = await User1.findOne({ email: email });
+      const isUserExists = await User.findOne({ email: email });
       if (!isUserExists) {
         return res.json({ success: false, error: "Email not found." });
       }
@@ -111,11 +113,11 @@ export const Register = async (req, res) => {
 
   export const CreateTask = async (req, res) => {
     try {
-      const { title, description, date_time,location,image_url } = req.body.taskData;
+      const {title, description, date_time,location,image_url } = req.body;
       if (!title || !description || !date_time || !location || !image_url ) {
         return res.json({ success: false, error: "All fields are required." });
       }
-      const isTitleExist = await Task.findOne({ title: title });
+      const isTitleExist = await Task.findOne({ title});
       console.log(isTitleExist, "isTitleExist");
       if (isTitleExist) {
         return res.json({
@@ -127,17 +129,40 @@ export const Register = async (req, res) => {
       const newTask = new Task({
         title: title,
         description: description,
-        date_time:date-time,
+        date_time:date_time,
         location:location,
         image_url:image_url
       });
-      console.log(assignedTo)
   
       const responseFromDb = await newTask.save();
   
       return res.json({
         success: true,
         message: "Task added Successfully.",
+      });
+    } catch (error) {
+      console.log(error, "error");
+      return res.json({ error: error, success: false });
+    }
+  };
+  export const TicketBook = async (req, res) => {
+    try {
+      const {ticket} = req.body;
+      if (!ticket) {
+        return res.json({ success: false, error: "All fields are required." });
+      }
+      
+  
+      const newTicket = new Ticket({
+        ticket: ticket,
+        
+      });
+  
+      const responseFromDb = await newTicket.save();
+  
+      return res.json({
+        success: true,
+        message: "Ticket added Successfully.",
       });
     } catch (error) {
       console.log(error, "error");
@@ -157,14 +182,14 @@ export const Register = async (req, res) => {
   export const UpdateTask = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, duedate, status } = req.body.taskData;
+        const { title, description, date_time, loaction, image_url} = req.body.taskData;
 
-        if (!title || !description || !duedate || !status) {
+        if (!title || !description || !date_time || !image_url || !loaction) {
             return res.json({ success: false, error: "All fields are required." });
         }
 
         const updatedTask = await Task.findByIdAndUpdate(id, {
-            title, description, duedate, status
+            title, description,date_time, loaction, image_url
         }, { new: true });
 
         if (!updatedTask) {
@@ -198,7 +223,7 @@ export const DeleteTask = async (req, res) => {
 
 export const GetAllUsers = async (req, res) => {
   try {
-    const users = await User1.find({});
+    const users = await User.find({});
     return res.json({ success: true, users });
   } catch (error) {
     return res.json({ success: false, error });
@@ -208,7 +233,7 @@ export const GetAllUsers = async (req, res) => {
 export const YourAddedTasks = async (req, res) => {
   try {
     const { userId } = req.body;
-    const tasks = await Task.find({ assignedTo: userId });
+    const tasks = await Task.find({ loaction: userId });
     console.log(userId)
     return res.json({ success: true, tasks });
   } catch (error) {
@@ -216,6 +241,65 @@ export const YourAddedTasks = async (req, res) => {
     return res.json({ error: error, success: false });
   }
 };
+export const getUserProfile = async (req, res) => {
+  try {
+      const profile = await profile.findById(req.user._id);
+      if (!profile) return res.status(404).json({ message: 'User not found' });
+      res.json({profile});
+  } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+ export const  getUserBookings = async (req, res) => {
+  try {
+      const event = await event.find({ 'bookings.user': req.user._id });
+      res.json({ bookings: event});
+  } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+ export const bookTickets = async (req, res) => {
+  const { eventId, ticketCount } = req.body;
+  try {
+      const event = await Event.findById(eventId);
+      if (!event) return res.status(404).json({ message: 'Event not found' });
+      if (event.totalTickets - event.bookedTickets < ticketCount) return res.status(400).json({ message: 'Not enough tickets available' });
+
+      event.bookedTickets += ticketCount;
+      await event.save();
+      res.json({ message: 'Tickets booked successfully' });
+  } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const createReminder = async (req, res) => {
+  try {
+      const { eventId, reminderTime } = req.body;
+      const event = await Event.findById(eventId);
+      if (!event) {
+          return res.status(404).json({ success: false, message: 'Event not found' });
+      }
+
+      const reminder = new Reminder({ event: eventId, reminderTime });
+      await reminder.save();
+
+      
+      scheduleReminder(reminderTime, event);
+
+      res.status(201).json({ success: true, message: 'Reminder set successfully' });
+  } catch (error) {
+      res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+
+
+
 
 
 

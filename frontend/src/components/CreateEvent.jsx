@@ -40,7 +40,7 @@ function CreateEvent() {
         e.preventDefault();
         try {
             if (taskData.title && taskData.description && taskData.date_time && taskData.location && taskData.image_url) {
-                const response = await Api.post("/task/addtask", taskData); // Send taskData directly
+                const response = await Api.post("/task/CreateTask", taskData); // Send taskData directly
                 if (response.data.success) {
                     setTaskData({
                         title: '',

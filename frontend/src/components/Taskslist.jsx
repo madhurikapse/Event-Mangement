@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Api from "../axiosconfig";
 import { AuthContext } from "../context/auth.context";
-
+import "./Tasklist.css"
 function Tasklist(){
     const { state } = useContext(AuthContext);
     const router=useNavigate();
@@ -12,8 +12,9 @@ function Tasklist(){
     const [editFormData, setEditFormData] = useState({
         title: "",
         description: "",
-        duedate: "",
-        status: ""
+        date_time: "",
+        location: "",
+        image_url:""
     });
     console.log(allTasks);
     const [users, setUsers] = useState([]);
@@ -61,8 +62,9 @@ function Tasklist(){
                 setEditFormData({
                     title: "",
                     description: "",
-                    duedate: "",
-                    status: ""
+                    date_time: "",
+                    location: "",
+                    imgage_url:""
                 });
             }
         } catch (error) {
@@ -75,8 +77,9 @@ function Tasklist(){
         setEditFormData({
             title: task.title,
             description: task.description,
-            duedate: task.duedate,
-            status: task.status
+            date_time: task.date_time,
+            location: task.location,
+            imgage_url:task.imgage_url
         });
     }
 
@@ -106,7 +109,7 @@ function Tasklist(){
 
     return(
         <div id="main">
-            <h1>All Tasks</h1>
+            <h1>All Events</h1>
                 {loading?(<div>
                     <h1>Loading....</h1>                    
                 </div>):(
@@ -115,8 +118,9 @@ function Tasklist(){
                         <div id="taskshow">
                             <p><b>Title</b>: {task.title}</p>
                             <p><b>Description</b>: {task.description}</p>
-                            <p><b>Due Date</b>: {task.duedate}</p>
-                            <p><b>Status</b>: {task.status}</p>
+                            <p><b>date_time</b>: {task.date_time}</p>
+                            <p><b>location</b>: {task.location}</p>
+                            <p><b>image_url</b>:{task.image_url}</p>
                             <button onClick={() => handleEdit(task)}>Edit</button>
                             <button onClick={() => handleDelete(task._id)}>Delete</button>
                         </div>
@@ -126,7 +130,7 @@ function Tasklist(){
 
             {taskToEdit && (
                 <div id="editForm">
-                    <h2>Edit Task</h2>
+                    <h2>Edit Event</h2>
                     <input
                         type="text"
                         name="title"
@@ -142,18 +146,18 @@ function Tasklist(){
                     />
                     <input
                         type="date"
-                        name="duedate"
-                        value={editFormData.duedate}
+                        name="date_time"
+                        value={editFormData.date_time}
                         onChange={handleInputChange}
                     />
                     <select
-                        name="status"
-                        value={editFormData.status}
+                        name="location"
+                        value={editFormData.location}
                         onChange={handleInputChange}
                     >
-                        <option value="">Select Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="completed">Completed</option>
+                        <option value="">location</option>
+                        <option>mumbai</option>
+                        <option>pune</option>
                     </select>
                     <button onClick={handleUpdate}>Update Task</button>
                     <button onClick={() => setTaskToEdit(null)}>Cancel</button>

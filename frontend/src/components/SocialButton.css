@@ -1,0 +1,19 @@
+.social-share {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-share button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.social-share .react-share__icon {
+    transition: transform 0.3s ease;
+}
+
+.social-share .react-share__icon:hover {
+    transform: scale(1.1);
+}
